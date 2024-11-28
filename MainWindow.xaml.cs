@@ -23,4 +23,3 @@ namespace Basic_Clicker
         }
     }
 }
-    
