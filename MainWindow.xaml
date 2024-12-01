@@ -15,7 +15,7 @@
     <Grid>
         <!-- Фон для меню картинкой из файла MenuPictures -->
         <Grid.Background>
-            <ImageBrush ImageSource="C:\Users\ivlev\OneDrive\Рабочий стол\Совместный проект\MenuPictures\WhiteMenuBackground.jpg"
+            <ImageBrush ImageSource="Images\WhiteMenuBackground.jpg"
             Stretch="UniformToFill"></ImageBrush>
         </Grid.Background>
 
