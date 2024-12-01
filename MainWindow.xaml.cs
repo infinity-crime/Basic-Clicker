@@ -13,10 +13,6 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-
-
-
-/* привет */
 namespace Basic_Clicker
 {
     public partial class MainWindow : Window
