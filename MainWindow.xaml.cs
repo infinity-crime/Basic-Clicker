@@ -21,5 +21,18 @@ namespace Basic_Clicker
         {
             InitializeComponent();
         }
+
+        private void ButtonExit_Click(object sender, RoutedEventArgs e) // обработчик вызывает модальное окно с подтверждением выхода из приложения
+        {
+            MessageBoxResult messageBoxResult = MessageBox.Show("Вы уверены, что хотите выйти?", "Выход", MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.No);
+            switch(messageBoxResult) // обрабатываем кнопки, нажатые пользователем в модальном окне
+            {
+                case MessageBoxResult.Yes:
+                    this.Close();
+                    break;
+                case MessageBoxResult.No:
+                    break;
+            }
+        }
     }
 }
