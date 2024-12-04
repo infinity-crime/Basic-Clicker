@@ -12,11 +12,14 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Media;
 
 namespace Basic_Clicker
 {
     public partial class MainWindow : Window
     {
+        private MediaPlayer _mediaplayer = new MediaPlayer();
+
         public MainWindow()
         {
             InitializeComponent();
@@ -24,6 +27,8 @@ namespace Basic_Clicker
 
         private void ButtonExit_Click(object sender, RoutedEventArgs e) // обработчик вызывает модальное окно с подтверждением выхода из приложения
         {
+            ButtonSound_Click(ButtonExit, e);
+
             MessageBoxResult messageBoxResult = MessageBox.Show("Вы уверены, что хотите выйти?", "Выход", MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.No);
             switch(messageBoxResult) // обрабатываем кнопки, нажатые пользователем в модальном окне
             {
@@ -32,6 +37,28 @@ namespace Basic_Clicker
                     break;
                 case MessageBoxResult.No:
                     break;
+            }
+        }
+
+        private void ButtonSound_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                string path = @"C:\Projects_on_c#\Basic-Clicker\Sounds\ButtonSoundMenu.mp3";
+                if (_mediaplayer.Source != null && _mediaplayer.Position > TimeSpan.Zero)
+                {
+                    _mediaplayer.Stop();
+                    _mediaplayer.Position = TimeSpan.Zero;
+                }
+                else
+                    _mediaplayer.Open(new Uri(path, UriKind.Relative));
+
+                _mediaplayer.Volume = 1.0;
+                _mediaplayer.Play();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ошибка воспроизведения: {ex.Message}");
             }
         }
     }
