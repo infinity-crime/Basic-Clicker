@@ -13,10 +13,6 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-
-
-
-/* привет */
 namespace Basic_Clicker
 {
     public partial class MainWindow : Window
@@ -24,6 +20,24 @@ namespace Basic_Clicker
         public MainWindow()
         {
             InitializeComponent();
+        }
+
+
+
+        /*  Функция для закрытия игры */
+        private void Exit_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBoxResult result = MessageBox.Show(
+                "Вы точно хотите выйти из игры?",
+                "Выход из игры",
+                MessageBoxButton.YesNo
+               
+             );
+            if (result == MessageBoxResult.Yes)
+            {
+                Application.Current.Shutdown(); 
+            }
+
         }
     }
 }
