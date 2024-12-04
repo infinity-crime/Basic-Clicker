@@ -44,14 +44,14 @@ namespace Basic_Clicker
         {
             try
             {
-                string path = @"C:\Projects_on_c#\Basic-Clicker\Sounds\ButtonSoundMenu.mp3";
+                string path = @"Sounds\ButtonSoundMenu.mp3";
                 if (_mediaplayer.Source != null && _mediaplayer.Position > TimeSpan.Zero)
                 {
                     _mediaplayer.Stop();
                     _mediaplayer.Position = TimeSpan.Zero;
                 }
                 else
-                    _mediaplayer.Open(new Uri(path, UriKind.Relative));
+                    _mediaplayer.Open(new Uri(path, UriKind.RelativeOrAbsolute));
 
                 _mediaplayer.Volume = 1.0;
                 _mediaplayer.Play();
