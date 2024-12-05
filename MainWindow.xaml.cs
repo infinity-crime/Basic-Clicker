@@ -19,10 +19,11 @@ namespace Basic_Clicker
     public partial class MainWindow : Window
     {
         private MediaPlayer _mediaplayer = new MediaPlayer(); // объект MediaPlayer для воспроизведения звука клика
-
+        private MediaPlayer _mediaplayer1 = new MediaPlayer(); // объект MediaPlayer для воспроизведения фоновой музыки
         public MainWindow()
         {
             InitializeComponent();
+            FonSound();
         }
 
         private void ButtonSound()
@@ -45,6 +46,43 @@ namespace Basic_Clicker
             {
                 MessageBox.Show($"Ошибка воспроизведения: {ex.Message}");
             }
+        }
+
+
+        private void MediaPlayer1_MediaEnded(object sender, EventArgs e) // функция для повтоного воспроизведения музыки
+        {
+            _mediaplayer1.Position = TimeSpan.Zero; 
+            _mediaplayer1.Play(); 
+        }
+
+        private void FonSound()
+        {
+            try
+            {
+                string path = @"Sounds\FonSoundMenu.mp3";
+                if (_mediaplayer1.Source != null && _mediaplayer1.Position > TimeSpan.Zero)  // Если музыка уже играет, не запускаем её повторно
+                {
+                    _mediaplayer.Stop();
+                    _mediaplayer.Position = TimeSpan.Zero;
+                }
+
+                _mediaplayer1.Open(new Uri(path, UriKind.RelativeOrAbsolute));
+                _mediaplayer1.Volume = 1.0;
+                _mediaplayer1.Play();
+
+                _mediaplayer1.MediaEnded += MediaPlayer1_MediaEnded; // воспроизводит музыку с начала после её окончания
+
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ошибка воспроизведения: {ex.Message}");
+            }
+        }
+
+        private void _mediaplayer1_MediaEnded(object sender, EventArgs e)
+        {
+            throw new NotImplementedException();
         }
 
         private void ButtonGo_Click(object sender, RoutedEventArgs e)

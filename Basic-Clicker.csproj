@@ -105,6 +105,9 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
+    <Content Include="Sounds\FonSoundMenu.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Resource Include="ImagesMenu\Pixel.jpg" />
     <Resource Include="ImagesMenu\WhiteMenuBackground.jpg" />
     <Content Include="Sounds\ButtonSoundMenu.mp3">
