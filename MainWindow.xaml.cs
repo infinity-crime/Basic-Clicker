@@ -18,29 +18,14 @@ namespace Basic_Clicker
 {
     public partial class MainWindow : Window
     {
-        private MediaPlayer _mediaplayer = new MediaPlayer();
+        private MediaPlayer _mediaplayer = new MediaPlayer(); // объект MediaPlayer для воспроизведения звука клика
 
         public MainWindow()
         {
             InitializeComponent();
         }
 
-        private void ButtonExit_Click(object sender, RoutedEventArgs e) // обработчик вызывает модальное окно с подтверждением выхода из приложения
-        {
-            ButtonSound_Click(ButtonExit, e);
-
-            MessageBoxResult messageBoxResult = MessageBox.Show("Вы уверены, что хотите выйти?", "Выход", MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.No);
-            switch(messageBoxResult) // обрабатываем кнопки, нажатые пользователем в модальном окне
-            {
-                case MessageBoxResult.Yes:
-                    this.Close();
-                    break;
-                case MessageBoxResult.No:
-                    break;
-            }
-        }
-
-        private void ButtonSound_Click(object sender, RoutedEventArgs e)
+        private void ButtonSound()
         {
             try
             {
@@ -51,7 +36,7 @@ namespace Basic_Clicker
                     _mediaplayer.Position = TimeSpan.Zero;
                 }
                 else
-                    _mediaplayer.Open(new Uri(path, UriKind.RelativeOrAbsolute));
+                    _mediaplayer.Open(new Uri(path, UriKind.RelativeOrAbsolute)); // открытие пути всего один раз при запуске
 
                 _mediaplayer.Volume = 1.0;
                 _mediaplayer.Play();
@@ -59,6 +44,31 @@ namespace Basic_Clicker
             catch (Exception ex)
             {
                 MessageBox.Show($"Ошибка воспроизведения: {ex.Message}");
+            }
+        }
+
+        private void ButtonGo_Click(object sender, RoutedEventArgs e)
+        {
+            ButtonSound();
+        }
+
+        private void ButtonOptions_Click(object sender, RoutedEventArgs e)
+        {
+            ButtonSound();
+        }
+
+        private void ButtonExit_Click(object sender, RoutedEventArgs e) // обработчик вызывает модальное окно с подтверждением выхода из приложения
+        {
+            ButtonSound();
+
+            MessageBoxResult messageBoxResult = MessageBox.Show("Вы уверены, что хотите выйти?", "Выход", MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.No);
+            switch (messageBoxResult) // обрабатываем кнопки, нажатые пользователем в модальном окне
+            {
+                case MessageBoxResult.Yes:
+                    this.Close();
+                    break;
+                case MessageBoxResult.No:
+                    break;
             }
         }
     }
