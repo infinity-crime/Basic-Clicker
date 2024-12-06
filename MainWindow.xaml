@@ -9,13 +9,14 @@
         Title="Basic Clicker"
         Width="1920" Height="1080"
         WindowState="Maximized"
+        WindowStyle="None"
         ResizeMode="NoResize"
         Style="{StaticResource MaterialDesignWindow}">
 
     <Grid>
         <!-- Фон для меню картинкой из файла MenuPictures -->
         <Grid.Background>
-            <ImageBrush ImageSource="Images\WhiteMenuBackground.jpg"
+            <ImageBrush ImageSource="ImagesMenu\WhiteMenuBackground.jpg"
             Stretch="UniformToFill"></ImageBrush>
         </Grid.Background>
 
@@ -41,23 +42,23 @@
                 <!-- Панель для кнопок -->
                 <StackPanel Grid.Row="1" VerticalAlignment="Center"
                             HorizontalAlignment="Center" Margin="0 100 0 100">
-                    <Button Content="GO CLICK!"
+                    <Button Content="GO CLICK!" Click="ButtonGo_Click"
                             Style="{StaticResource MaterialDesignPaperDarkButton}"
                             Width="300" Height="50" FontSize="20" Margin="0 0 0 30"
                             Background="AliceBlue" FontFamily="Maiandra GD" BorderBrush="AliceBlue"/>
 
-                    <Button Content="OPTIONS!"
+                    <Button Content="OPTIONS!" Click="ButtonOptions_Click"
                             Style="{StaticResource MaterialDesignPaperDarkButton}"
                             Width="300" Height="50" FontSize="20" Margin="0 0 0 30"
                             Background="AliceBlue" FontFamily="Maiandra GD" BorderBrush="AliceBlue"/>
 
-                    <Button Content="EXIT?!"
+                    <Button x:Name="ButtonExit" Content="EXIT?!" Click="ButtonExit_Click" IsCancel="True"
                             Style="{StaticResource MaterialDesignPaperDarkButton}"
                             Width="300" Height="50" FontSize="20" Margin="0 0 0 0"
                             Background="LightPink" FontFamily="Maiandra GD" BorderBrush="LightPink"  Click="Exit_Click" />
                 </StackPanel>
             </Grid>
-
+    
         </Viewbox>
     </Grid>
 

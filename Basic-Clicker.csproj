@@ -105,7 +105,14 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
-    <Resource Include="Images\WhiteMenuBackground.jpg" />
+    <Content Include="Sounds\FonSoundMenu.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Resource Include="ImagesMenu\Pixel.jpg" />
+    <Resource Include="ImagesMenu\WhiteMenuBackground.jpg" />
+    <Content Include="Sounds\ButtonSoundMenu.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="packages\MaterialDesignThemes.5.1.0\build\MaterialDesignThemes.targets" Condition="Exists('packages\MaterialDesignThemes.5.1.0\build\MaterialDesignThemes.targets')" />
