@@ -105,23 +105,6 @@ namespace Basic_Clicker
                     break;
             }
         }
-
-
-
-        /*  Функция для закрытия игры */
-        private void Exit_Click(object sender, RoutedEventArgs e)
-        {
-            MessageBoxResult result = MessageBox.Show(
-                "Вы точно хотите выйти из игры?",
-                "Выход из игры",
-                MessageBoxButton.YesNo
-               
-             );
-            if (result == MessageBoxResult.Yes)
-            {
-                Application.Current.Shutdown(); 
-            }
-
-        }
+        
     }
 }
