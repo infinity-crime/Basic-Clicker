@@ -80,10 +80,6 @@ namespace Basic_Clicker
             }
         }
 
-        private void _mediaplayer1_MediaEnded(object sender, EventArgs e)
-        {
-            throw new NotImplementedException();
-        }
 
         private void ButtonGo_Click(object sender, RoutedEventArgs e)
         {
