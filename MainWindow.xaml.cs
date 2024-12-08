@@ -13,18 +13,18 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Media;
+using Basic_Clicker.Helpers;
 
 namespace Basic_Clicker
 {
     public partial class MainWindow : Window
     {
         private MediaPlayer _buttonPlayer = new MediaPlayer(); // объект MediaPlayer для воспроизведения звука клика
-        private MediaPlayer _backroundPlayer = new MediaPlayer(); // объект MediaPlayer для воспроизведения фоновой музыки
 
         public MainWindow()
         {
             InitializeComponent();
-            BackroundSoundMenu();
+            MusicManager.Instance.PlayMusic();
         }
 
         private void ButtonSound()
@@ -49,42 +49,15 @@ namespace Basic_Clicker
             }
         }
 
-
-        private void MediaPlayer1_MediaEnded(object sender, EventArgs e) // функция для повтоного воспроизведения музыки
-        {
-            _backroundPlayer.Position = TimeSpan.Zero; 
-            _backroundPlayer.Play(); 
-        }
-
-        private void BackroundSoundMenu()
-        {
-            try
-            {
-                string path = @"Sounds\FonSoundMenu.mp3";
-                if (_backroundPlayer.Source != null && _backroundPlayer.Position > TimeSpan.Zero)  // Если музыка уже играет, не запускаем её повторно
-                {
-                    _buttonPlayer.Stop();
-                    _buttonPlayer.Position = TimeSpan.Zero;
-                }
-
-                _backroundPlayer.Open(new Uri(path, UriKind.RelativeOrAbsolute));
-                _backroundPlayer.Volume = 1.0;
-                _backroundPlayer.Play();
-
-                _backroundPlayer.MediaEnded += MediaPlayer1_MediaEnded; // воспроизводит музыку с начала после её окончания
-
-
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Ошибка воспроизведения: {ex.Message}");
-            }
-        }
-
-
         private void ButtonGo_Click(object sender, RoutedEventArgs e)
         {
             ButtonSound();
+
+            MusicManager.Instance.StopMusic();
+
+            ClickerWindow clickerWindow = new ClickerWindow();
+            clickerWindow.Show();
+            this.Close();
         }
 
         private void ButtonOptions_Click(object sender, RoutedEventArgs e)
