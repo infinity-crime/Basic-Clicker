@@ -18,12 +18,13 @@ namespace Basic_Clicker
 {
     public partial class MainWindow : Window
     {
-        private MediaPlayer _mediaplayer = new MediaPlayer(); // объект MediaPlayer для воспроизведения звука клика
-        private MediaPlayer _mediaplayer1 = new MediaPlayer(); // объект MediaPlayer для воспроизведения фоновой музыки
+        private MediaPlayer _buttonPlayer = new MediaPlayer(); // объект MediaPlayer для воспроизведения звука клика
+        private MediaPlayer _backroundPlayer = new MediaPlayer(); // объект MediaPlayer для воспроизведения фоновой музыки
+
         public MainWindow()
         {
             InitializeComponent();
-            FonSound();
+            BackroundSoundMenu();
         }
 
         private void ButtonSound()
@@ -31,16 +32,16 @@ namespace Basic_Clicker
             try
             {
                 string path = @"Sounds\ButtonSoundMenu.mp3";
-                if (_mediaplayer.Source != null && _mediaplayer.Position > TimeSpan.Zero)
+                if (_buttonPlayer.Source != null && _buttonPlayer.Position > TimeSpan.Zero)
                 {
-                    _mediaplayer.Stop();
-                    _mediaplayer.Position = TimeSpan.Zero;
+                    _buttonPlayer.Stop();
+                    _buttonPlayer.Position = TimeSpan.Zero;
                 }
                 else
-                    _mediaplayer.Open(new Uri(path, UriKind.RelativeOrAbsolute)); // открытие пути всего один раз при запуске
+                    _buttonPlayer.Open(new Uri(path, UriKind.RelativeOrAbsolute)); // открытие пути всего один раз при запуске
 
-                _mediaplayer.Volume = 1.0;
-                _mediaplayer.Play();
+                _buttonPlayer.Volume = 1.0;
+                _buttonPlayer.Play();
             }
             catch (Exception ex)
             {
@@ -51,26 +52,26 @@ namespace Basic_Clicker
 
         private void MediaPlayer1_MediaEnded(object sender, EventArgs e) // функция для повтоного воспроизведения музыки
         {
-            _mediaplayer1.Position = TimeSpan.Zero; 
-            _mediaplayer1.Play(); 
+            _backroundPlayer.Position = TimeSpan.Zero; 
+            _backroundPlayer.Play(); 
         }
 
-        private void FonSound()
+        private void BackroundSoundMenu()
         {
             try
             {
                 string path = @"Sounds\FonSoundMenu.mp3";
-                if (_mediaplayer1.Source != null && _mediaplayer1.Position > TimeSpan.Zero)  // Если музыка уже играет, не запускаем её повторно
+                if (_backroundPlayer.Source != null && _backroundPlayer.Position > TimeSpan.Zero)  // Если музыка уже играет, не запускаем её повторно
                 {
-                    _mediaplayer.Stop();
-                    _mediaplayer.Position = TimeSpan.Zero;
+                    _buttonPlayer.Stop();
+                    _buttonPlayer.Position = TimeSpan.Zero;
                 }
 
-                _mediaplayer1.Open(new Uri(path, UriKind.RelativeOrAbsolute));
-                _mediaplayer1.Volume = 1.0;
-                _mediaplayer1.Play();
+                _backroundPlayer.Open(new Uri(path, UriKind.RelativeOrAbsolute));
+                _backroundPlayer.Volume = 1.0;
+                _backroundPlayer.Play();
 
-                _mediaplayer1.MediaEnded += MediaPlayer1_MediaEnded; // воспроизводит музыку с начала после её окончания
+                _backroundPlayer.MediaEnded += MediaPlayer1_MediaEnded; // воспроизводит музыку с начала после её окончания
 
 
             }
