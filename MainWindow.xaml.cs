@@ -63,6 +63,12 @@ namespace Basic_Clicker
         private void ButtonOptions_Click(object sender, RoutedEventArgs e)
         {
             ButtonSound();
+
+            MusicManager.Instance.StopMusic();
+
+            ClickerSettings clickerSettings = new ClickerSettings();
+            clickerSettings.Show();
+            this.Close();
         }
 
         private void ButtonExit_Click(object sender, RoutedEventArgs e) // обработчик вызывает модальное окно с подтверждением выхода из приложения
@@ -79,5 +85,6 @@ namespace Basic_Clicker
                     break;
             }
         }
+        
     }
 }
