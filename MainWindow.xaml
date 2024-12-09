@@ -6,7 +6,6 @@
         xmlns:local="clr-namespace:Basic_Clicker"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
-        Title="Basic Clicker"
         Width="1920" Height="1080"
         WindowState="Maximized"
         WindowStyle="None"
