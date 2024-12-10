@@ -35,7 +35,8 @@ namespace Basic_Clicker
 
         private void Image_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
-            _clickerViewModel.IncrementClick();
+            var viewModel = DataContext as ClickerViewModel;
+            viewModel?.IncrementClick();
         }
     }
 }
