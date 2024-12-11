@@ -100,6 +100,9 @@ namespace Basic_Clicker.ViewModel
         {
             if(_timer != null)
             {
+                if (_timeLeftInSeconds > 0) // если врем еще осталось, то сбросить нажатием кнопки нельзя
+                    return;
+
                 _timer.Stop();
                 _timer.Dispose();
                 TotalClicks = 0;
