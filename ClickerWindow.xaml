@@ -86,7 +86,10 @@
                         </ComboBox.ItemTemplate>
                         
                     </ComboBox>
-                    
+
+                    <TextBlock Text="{Binding ClickRecord, StringFormat='Own click record: {0}'}" Margin="20 80 20 0"
+                               FontSize="30" FontFamily="Berlin Sans FB" HorizontalAlignment="Center"/>
+
                 </StackPanel>
 
             </Border>
