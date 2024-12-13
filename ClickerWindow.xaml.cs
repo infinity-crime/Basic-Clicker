@@ -17,13 +17,9 @@ namespace Basic_Clicker
 {
     public partial class ClickerWindow : Window
     {
-        private ClickerViewModel _clickerViewModel;
-
         public ClickerWindow()
         {
             InitializeComponent();
-            _clickerViewModel = new ClickerViewModel();
-            this.DataContext = _clickerViewModel;
         }
 
         private void BackToMenuButton_Click(object sender, RoutedEventArgs e)

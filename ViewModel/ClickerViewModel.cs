@@ -9,12 +9,17 @@ using System.Timers;
 using System.Runtime.CompilerServices;
 using System.Net.Http.Headers;
 using System.Windows.Input;
+using Basic_Clicker.Helpers;
 
 namespace Basic_Clicker.ViewModel
 {
     public class ClickerViewModel : INotifyPropertyChanged
     {
+        private FileManager _fileManager = new FileManager(@"LocalSave\Record.txt");
+
         private int _totalClicks;
+        private int _recordClick;
+
         private string _selectedTime;
 
         private bool _isClickingAllowed; // флаг, указывающий на нажатие кнокпи отсчета времени (если не нажато, то не засчитываем клики)
@@ -37,6 +42,19 @@ namespace Basic_Clicker.ViewModel
                 {
                     _totalClicks = value;
                     OnPropertyChanged(nameof(TotalClicks));
+                }
+            }
+        }
+
+        public int ClickRecord
+        {
+            get => _recordClick;
+            set
+            {
+                if (_recordClick != value)
+                {
+                    _recordClick = value;
+                    OnPropertyChanged();
                 }
             }
         }
@@ -79,6 +97,8 @@ namespace Basic_Clicker.ViewModel
             SelectedTime = AvailableTimes[0];
 
             StartClickCommand = new RelayCommand(StartClick);
+
+            ClickRecord = _fileManager.ReadRecord();
         }
 
         private int ParseTime(string selectedTime) // преобразователь времени из строки в int (секунды)
@@ -100,8 +120,12 @@ namespace Basic_Clicker.ViewModel
         {
             if(_timer != null)
             {
+                if (_timeLeftInSeconds > 0) // если врем еще осталось, то сбросить нажатием кнопки нельзя
+                    return;
+
                 _timer.Stop();
                 _timer.Dispose();
+
                 TotalClicks = 0;
             }
 
@@ -121,6 +145,11 @@ namespace Basic_Clicker.ViewModel
                 {
                     _isClickingAllowed = false;
                     _timer.Stop();
+                    if(TotalClicks > ClickRecord)
+                    {
+                        _fileManager.WriteRecord(TotalClicks);
+                        ClickRecord = TotalClicks;
+                    }
                 }
             };
 
