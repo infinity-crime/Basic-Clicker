@@ -19,13 +19,39 @@ namespace Basic_Clicker
 
     public partial class ClickerSettings : Window
     {
+        private MediaPlayer _buttonPlayer = new MediaPlayer();
+
         public ClickerSettings()
         {
             InitializeComponent();
         }
 
+        private void ButtonSound()
+        {
+            try
+            {
+                string path = @"Sounds\ButtonSoundMenu.mp3";
+                if (_buttonPlayer.Source != null && _buttonPlayer.Position > TimeSpan.Zero)
+                {
+                    _buttonPlayer.Stop();
+                    _buttonPlayer.Position = TimeSpan.Zero;
+                }
+                else
+                    _buttonPlayer.Open(new Uri(path, UriKind.RelativeOrAbsolute)); // открытие пути всего один раз при запуске
+
+                _buttonPlayer.Volume = 1.0;
+                _buttonPlayer.Play();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Ошибка воспроизведения: {ex.Message}");
+            }
+        }
+
+
         private void BackToMenuButton_Click(object sender, RoutedEventArgs e)
         {
+            ButtonSound();
             MainWindow mainWindow = new MainWindow();
             mainWindow.Show();
             this.Close();

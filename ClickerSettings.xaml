@@ -96,7 +96,7 @@
             Foreground="Black" 
             Grid.Row="2"/>
 
-        <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,350,0,100">
+        <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,425,0,100">
             <!-- Текст перед квадратом -->
             <TextBlock Text="Music: " FontSize="30" FontFamily="OCR A" VerticalAlignment="Center"/>
             <!-- Квадрат -->
