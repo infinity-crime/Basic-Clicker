@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Basic_Clicker"
         xmlns:vm="clr-namespace:Basic_Clicker.ViewModel"
+        xmlns:sys="clr-namespace:System;assembly=mscorlib"
         mc:Ignorable="d"
         Width="1920" Height="1080"
         WindowState="Maximized"
@@ -62,14 +63,30 @@
                                FontSize="50" Margin="0 50 0 0"
                                FontFamily="Berlin Sans FB"/>
 
-                    <TextBlock Text="Time: 0:00:00" HorizontalAlignment="Center"
+                    <TextBlock Text="{Binding RemainingTime, StringFormat='Time: {0}'}" HorizontalAlignment="Center"
                                FontSize="50" Margin="0 60 0 0"
                                FontFamily="Berlin Sans FB"/>
 
                     <Button x:Name="ButtonStartClick" Content="START CLICK!"
                             Margin="20 70 20 0" BorderBrush="Black"
                             BorderThickness="3" Background="DarkGoldenrod"
-                            Foreground="Black" FontSize="20" Height="40"/>
+                            Foreground="Black" FontSize="20" Height="40"
+                            Command="{Binding StartClickCommand}"/>
+
+                    <ComboBox x:Name="TimerSelector" Margin="20 70 20 0"
+                              ItemsSource="{Binding AvailableTimes}"
+                              SelectedItem="{Binding SelectedTime}">
+
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding}" HorizontalAlignment="Center"
+                                           FontFamily="Berlin Sans FB"
+                                           FontSize="30"/>
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                        
+                    </ComboBox>
+                    
                 </StackPanel>
 
             </Border>
