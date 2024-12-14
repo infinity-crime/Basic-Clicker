@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Basic_Clicker.Helpers;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
@@ -19,43 +20,46 @@ namespace Basic_Clicker
 
     public partial class ClickerSettings : Window
     {
-        private MediaPlayer _buttonPlayer = new MediaPlayer();
-
         public ClickerSettings()
         {
             InitializeComponent();
         }
 
-        private void ButtonSound()
-        {
-            try
-            {
-                string path = @"Sounds\ButtonSoundMenu.mp3";
-                if (_buttonPlayer.Source != null && _buttonPlayer.Position > TimeSpan.Zero)
-                {
-                    _buttonPlayer.Stop();
-                    _buttonPlayer.Position = TimeSpan.Zero;
-                }
-                else
-                    _buttonPlayer.Open(new Uri(path, UriKind.RelativeOrAbsolute)); // открытие пути всего один раз при запуске
-
-                _buttonPlayer.Volume = 1.0;
-                _buttonPlayer.Play();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Ошибка воспроизведения: {ex.Message}");
-            }
-        }
-
-
         private void BackToMenuButton_Click(object sender, RoutedEventArgs e)
         {
-            ButtonSound();
+            MusicManager.Instance.PlayButtonSound();
+
             MainWindow mainWindow = new MainWindow();
             mainWindow.Show();
             this.Close();
         }
-    }
 
+        private void VolumeSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            double vol = VolumeSlider.Value / 100;
+            MusicManager.Instance.SetBackgroundVolume(vol);
+        }
+
+        private void SoundSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            double vol = SoundSlider.Value / 100;
+            MusicManager.Instance.SetButtonVolume(vol);
+        }
+
+
+        private void Button_ClickMusic(object sender, RoutedEventArgs e)
+        {
+            Button button = sender as Button;
+            if (button.Content.ToString() == "✔")
+            {
+                button.Content = ""; 
+                MusicManager.Instance.StopMusic();  
+            }
+            else
+            {
+                button.Content = "✔"; 
+                MusicManager.Instance.PlayMusic();  
+            }
+        }
+    }
 }
