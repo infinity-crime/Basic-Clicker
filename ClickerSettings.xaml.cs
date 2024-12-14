@@ -52,19 +52,15 @@ namespace Basic_Clicker
             Button button = sender as Button;
             if (button.Content.ToString() == "✔")
             {
-                button.Content = ""; 
-                MusicManager.Instance.StopMusic();  
+                button.Content = "";
+                MusicManager.Instance.StopMusic();
             }
             else
             {
-                button.Content = "✔"; 
-                MusicManager.Instance.PlayMusic();  
+                button.Content = "✔";
+                MusicManager.Instance.PlayMusic();
             }
-        private void BackToMenuButton_Click(object sender, RoutedEventArgs e)
-        {
-            MainWindow mainWindow = new MainWindow();
-            mainWindow.Show();
-            this.Close();
         }
+        
     }
 }
