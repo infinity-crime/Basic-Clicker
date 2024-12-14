@@ -35,27 +35,28 @@
                    VerticalAlignment="Center"/>
 
         <!-- Ползунок громкости музыки -->
-        <Slider x:Name="volumeSlider" 
+        <Slider x:Name="VolumeSlider" 
                 HorizontalAlignment="Center" 
                 VerticalAlignment="Top" 
                 Width="800" 
                 Minimum="0" 
                 Maximum="100" 
                 Value="50" 
-                TickFrequency="10"
+                TickFrequency="0.1"
                 IsSnapToTickEnabled="True" 
                 LargeChange="10"
                 SmallChange="10"
-                TickPlacement="BottomRight"
+                TickPlacement="None"
+                ValueChanged="VolumeSlider_ValueChanged"
                 Margin="0,160,0,0" Grid.Row="1"/>
 
         <!-- Текстовое отображение громкости музыки -->
-        <TextBlock x:Name="volumeLabel" 
+        <TextBlock x:Name="VolumeLabel" 
                    HorizontalAlignment="Center" 
                    VerticalAlignment="Top" 
                    FontFamily="OCR A" 
                    FontSize="30" 
-                   Text="Volume: 50%" 
+                   Text="Music Volume: 50%" 
                    Margin="0,80,0,0" Grid.Row="1"/>
 
         <!-- Ползунок громкости звука -->
@@ -66,11 +67,12 @@
             Minimum="0" 
             Maximum="100" 
             Value="50" 
-            TickFrequency="10"
+            TickFrequency="0.1"
             IsSnapToTickEnabled="True" 
             LargeChange="10"
             SmallChange="10"
-            TickPlacement="BottomRight"
+            TickPlacement="None"
+            ValueChanged="SoundSlider_ValueChanged"
             Margin="0,330,0,0" Grid.Row="1"/>
 
         <!-- Текстовое отображение громкости звука -->
@@ -79,7 +81,7 @@
            VerticalAlignment="Top" 
            FontFamily="OCR A" 
            FontSize="30" 
-           Text="Sound: 50%" 
+           Text="Button Sound: 50%" 
            Margin="0,250,0,0" Grid.Row="1"/>
 
         <!-- Кнопка "BACK?!" -->
@@ -100,10 +102,9 @@
             <!-- Текст перед квадратом -->
             <TextBlock Text="Music: " FontSize="30" FontFamily="OCR A" VerticalAlignment="Center"/>
             <!-- Квадрат -->
-            <Border Width="50" Height="50" BorderBrush="Black" BorderThickness="2" CornerRadius="3"
-                    HorizontalAlignment="Center" VerticalAlignment="Center">
-                <TextBlock Text="✔" FontSize="35" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-            </Border>
+            <Button Width="50" Height="50" BorderBrush="Black" BorderThickness="2" Content="✔"
+                  Click="Button_ClickMusic" FontSize="35" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="0,0,0,0">
+            </Button>
         </StackPanel>
 
     </Grid>

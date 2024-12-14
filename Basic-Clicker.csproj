@@ -122,6 +122,9 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
+    <Content Include="Helpers\ButtonSoundMenu.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Helpers\FonSoundMenu.mp3">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
