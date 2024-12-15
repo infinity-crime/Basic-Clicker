@@ -39,7 +39,7 @@
                 </Grid.ColumnDefinitions>
 
                 <TextBlock Grid.Column="0"
-                           Text="Current Multiplier: x1"
+                           Text="{Binding ClickMultiplier.Value, StringFormat='Current Multiplier: x{0}'}"
                            FontSize="30"
                            FontFamily="Berlin Sans FB"
                            VerticalAlignment="Center"
@@ -113,25 +113,33 @@
                     <UniformGrid Columns="2" Rows="2" Margin="10 100 10 0">
 
                         <Border BorderBrush="Black" BorderThickness="2">
-                            <Button Content="x1.5" 
-                                    MinHeight="50"
-                                    Style="{StaticResource MaterialDesignFlatLightBgButton}"/>
-                        </Border>
-
-                        <Border BorderBrush="Black" BorderThickness="2">
-                            <Button Content="x2" 
+                            <Button Content="x2"
+                                    Command="{Binding ClickMultiplierCommand}"
+                                    CommandParameter="2"
                                     MinHeight="50"
                                     Style="{StaticResource MaterialDesignFlatLightBgButton}"/>
                         </Border>
 
                         <Border BorderBrush="Black" BorderThickness="2">
                             <Button Content="x3" 
+                                    Command="{Binding ClickMultiplierCommand}"
+                                    CommandParameter="3"
                                     MinHeight="50"
                                     Style="{StaticResource MaterialDesignFlatLightBgButton}"/>
                         </Border>
 
                         <Border BorderBrush="Black" BorderThickness="2">
-                            <Button Content="x4" 
+                            <Button Content="x4"
+                                    Command="{Binding ClickMultiplierCommand}"
+                                    CommandParameter="4"
+                                    MinHeight="50"
+                                    Style="{StaticResource MaterialDesignFlatLightBgButton}"/>
+                        </Border>
+
+                        <Border BorderBrush="Black" BorderThickness="2">
+                            <Button Content="x5"
+                                    Command="{Binding ClickMultiplierCommand}"
+                                    CommandParameter="5"
                                     MinHeight="50"
                                     Style="{StaticResource MaterialDesignFlatLightBgButton}"/>
                         </Border>

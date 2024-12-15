@@ -70,6 +70,7 @@
       <DependentUpon>ClickerSettings.xaml</DependentUpon>
     </Compile>
     <Compile Include="Helpers\FileManager.cs" />
+    <Compile Include="Helpers\Multiplier.cs" />
     <Compile Include="ViewModel\ClickerViewModel.cs" />
     <Page Include="ClickerSettings.xaml">
       <SubType>Designer</SubType>

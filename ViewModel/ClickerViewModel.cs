@@ -27,6 +27,9 @@ namespace Basic_Clicker.ViewModel
         private Timer _timer; // таймер
         private int _timeLeftInSeconds; // время в секундах, которое прошло
 
+        public Multiplier ClickMultiplier { get; set; }
+        public ICommand ClickMultiplierCommand { get; }
+
         public ObservableCollection<string> AvailableTimes { get; set; }
 
         public ICommand StartClickCommand { get; }
@@ -94,11 +97,22 @@ namespace Basic_Clicker.ViewModel
                 "1 minute 30 seconds"
             };
 
+            ClickMultiplier = new Multiplier();
+
             SelectedTime = AvailableTimes[0];
 
             StartClickCommand = new RelayCommand(StartClick);
+            ClickMultiplierCommand = new RelayCommand<string>(multiplierValue => ChangeMultiplier(multiplierValue));
 
             ClickRecord = _fileManager.ReadRecord();
+        }
+
+        private void ChangeMultiplier(string multiplierValue)
+        {
+            if(double.TryParse(multiplierValue, out double newValue))
+            {
+                ClickMultiplier.Value = newValue;
+            }
         }
 
         private int ParseTime(string selectedTime) // преобразователь времени из строки в int (секунды)
@@ -145,6 +159,7 @@ namespace Basic_Clicker.ViewModel
                 {
                     _isClickingAllowed = false;
                     _timer.Stop();
+                    ClickMultiplier.Value = 1;
                     if(TotalClicks > ClickRecord)
                     {
                         _fileManager.WriteRecord(TotalClicks);
@@ -163,24 +178,50 @@ namespace Basic_Clicker.ViewModel
 
         public void IncrementClick()
         {
-            if(_isClickingAllowed)
-                TotalClicks++;
+            if (_isClickingAllowed)
+                TotalClicks += (int)ClickMultiplier.Value;
         }
     }
 
-    public class RelayCommand : ICommand // шаблонная реализация класса для команд
+    public class RelayCommand : ICommand
     {
         private readonly Action _execute;
+        private readonly Func<bool> _canExecute;
 
-        public RelayCommand(Action execute)
+        public RelayCommand(Action execute, Func<bool> canExecute = null)
         {
-            _execute = execute;
+            _execute = execute ?? throw new ArgumentNullException(nameof(execute));
+            _canExecute = canExecute;
         }
 
         public event EventHandler CanExecuteChanged;
 
-        public bool CanExecute(object parameter) => true;
+        public bool CanExecute(object parameter) => _canExecute?.Invoke() ?? true;
 
         public void Execute(object parameter) => _execute();
+    }
+
+    public class RelayCommand<T> : ICommand
+    {
+        private readonly Action<T> _execute;
+        private readonly Predicate<T> _canExecute;
+
+        public RelayCommand(Action<T> execute, Predicate<T> canExecute = null)
+        {
+            _execute = execute ?? throw new ArgumentNullException(nameof(execute));
+            _canExecute = canExecute;
+        }
+
+        public event EventHandler CanExecuteChanged;
+
+        public bool CanExecute(object parameter)
+        {
+            return _canExecute == null || _canExecute((T)parameter);
+        }
+
+        public void Execute(object parameter)
+        {
+            _execute((T)parameter);
+        }
     }
 }
