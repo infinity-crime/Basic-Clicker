@@ -69,6 +69,8 @@
     <Compile Include="ClickerSettings.xaml.cs">
       <DependentUpon>ClickerSettings.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\FileManager.cs" />
+    <Compile Include="Helpers\Multiplier.cs" />
     <Compile Include="ViewModel\ClickerViewModel.cs" />
     <Page Include="ClickerSettings.xaml">
       <SubType>Designer</SubType>
@@ -121,12 +123,18 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
+    <Content Include="Helpers\ButtonSoundMenu.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Helpers\FonSoundMenu.mp3">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Resource Include="ImagesMenu\Pixel.jpg" />
     <Resource Include="ImagesMenu\WhiteMenuBackground.jpg" />
     <Resource Include="ImagesMenu\ClickerBackgroundPhoto.jpg" />
+    <Content Include="LocalSave\Record.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Sounds\ButtonSoundMenu.mp3">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
