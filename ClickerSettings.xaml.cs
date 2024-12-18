@@ -29,6 +29,7 @@ namespace Basic_Clicker
 
             SoundSlider.Value = MusicManager.Instance.ButtonVolume * 100;
             SoundLabel.Text = $"Button Sound: {SoundSlider.Value}%";
+            UpdateButtonState();
         }
 
         private void BackToMenuButton_Click(object sender, RoutedEventArgs e)
@@ -38,6 +39,18 @@ namespace Basic_Clicker
             MainWindow mainWindow = new MainWindow();
             mainWindow.Show();
             this.Close();
+        }
+
+        private void UpdateButtonState()
+        {
+            if (MusicManager.Instance.MusicStates)
+            {
+                ButtonMusic.Content = "✔";
+            }
+            else
+            {
+                ButtonMusic.Content = "";
+            }
         }
 
         private void VolumeSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
@@ -67,12 +80,12 @@ namespace Basic_Clicker
             if (button.Content.ToString() == "✔")
             {
                 button.Content = "";
-                MusicManager.Instance.StopMusic();
+                MusicManager.Instance.MusicStates = false;
             }
             else
             {
                 button.Content = "✔";
-                MusicManager.Instance.PlayMusic();
+                MusicManager.Instance.MusicStates = true;
             }
         }
         
