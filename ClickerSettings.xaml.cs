@@ -23,6 +23,12 @@ namespace Basic_Clicker
         public ClickerSettings()
         {
             InitializeComponent();
+
+            VolumeSlider.Value = MusicManager.Instance.BackgroundVolume * 100;
+            VolumeLabel.Text = $"Music Volume: {VolumeSlider.Value}%";
+
+            SoundSlider.Value = MusicManager.Instance.ButtonVolume * 100;
+            SoundLabel.Text = $"Button Sound: {SoundSlider.Value}%";
         }
 
         private void BackToMenuButton_Click(object sender, RoutedEventArgs e)
@@ -36,14 +42,22 @@ namespace Basic_Clicker
 
         private void VolumeSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
-            double vol = VolumeSlider.Value / 100;
-            MusicManager.Instance.SetBackgroundVolume(vol);
+            if(VolumeLabel != null)
+            {
+                double vol = VolumeSlider.Value / 100;
+                MusicManager.Instance.SetBackgroundVolume(vol);
+                VolumeLabel.Text = $"Music Volume: {VolumeSlider.Value}%";
+            }
         }
 
         private void SoundSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
-            double vol = SoundSlider.Value / 100;
-            MusicManager.Instance.SetButtonVolume(vol);
+            if(SoundLabel != null)
+            {
+                double vol = SoundSlider.Value / 100;
+                MusicManager.Instance.SetButtonVolume(vol);
+                SoundLabel.Text = $"Button Sound: {SoundSlider.Value}%";
+            }
         }
 
 

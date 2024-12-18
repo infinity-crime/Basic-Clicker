@@ -41,6 +41,16 @@ namespace Basic_Clicker.Helpers
             }
         }
 
+        public double BackgroundVolume
+        {
+            get => _mediaBackgroundPlayer.Volume;
+        }
+
+        public double ButtonVolume
+        {
+            get => _mediaButtonPlayer.Volume;
+        }
+
         public void PlayMusic()
         {
             _mediaBackgroundPlayer.Play();
@@ -67,7 +77,5 @@ namespace Basic_Clicker.Helpers
             _mediaButtonPlayer.Position = TimeSpan.Zero;
             _mediaButtonPlayer.Play();
         }
-
-
     }
 }
