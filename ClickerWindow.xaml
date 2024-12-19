@@ -34,11 +34,20 @@
                 BorderThickness="3">
             <Grid>
                 <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
+                
+                
+                <Button Content="Switch fon"
+                  Margin="50 10 50 10"
+                  Grid.Column="0"
+                  Command="{Binding SwitchImageCommand}"
+                  Style="{StaticResource MaterialDesignOutlinedSecondaryButton}" />
+                
 
-                <TextBlock Grid.Column="0"
+                <TextBlock Grid.Column="1"
                            Text="{Binding ClickMultiplier.Value, StringFormat='Current Multiplier: x{0}'}"
                            FontSize="30"
                            FontFamily="Berlin Sans FB"
@@ -47,7 +56,7 @@
 
                 <Button Content="Back to menu"
                         Margin="0 10 50 10"
-                        Grid.Column="1"
+                        Grid.Column="2"
                         Click="BackToMenuButton_Click"
                         Style="{StaticResource MaterialDesignOutlinedSecondaryButton}" />
             </Grid>
@@ -152,8 +161,8 @@
 
             <Border Grid.Column="1" BorderBrush="Black"
                     BorderThickness="6">
-                
-                <Image Source="ImagesMenu\ClickerBackgroundPhoto.jpg"
+
+                <Image Source="{Binding CurrentImage}"
                        Stretch="Fill" 
                        MouseLeftButtonDown="Image_MouseLeftButtonDown"/>
                 

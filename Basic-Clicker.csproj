@@ -132,6 +132,15 @@
     <Resource Include="ImagesMenu\Pixel.jpg" />
     <Resource Include="ImagesMenu\WhiteMenuBackground.jpg" />
     <Resource Include="ImagesMenu\ClickerBackgroundPhoto.jpg" />
+    <Resource Include="ImagesMenu\ClickerBackgroundPhoto1.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="ImagesMenu\ClickerBackgroundPhoto2.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="ImagesMenu\ClickerBackgroundPhoto3.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
     <Content Include="LocalSave\Record.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
