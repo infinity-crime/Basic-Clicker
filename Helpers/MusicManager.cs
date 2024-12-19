@@ -43,7 +43,6 @@ namespace Basic_Clicker.Helpers
             }
         }
 
-
         public bool MusicStates
         {
             get => _musicStates;
@@ -56,9 +55,6 @@ namespace Basic_Clicker.Helpers
                     StopMusic();    
             }
         }
-
-
-       
 
         public void PlayMusic()
         {

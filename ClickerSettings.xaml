@@ -100,10 +100,11 @@
 
         <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,350,0,100">
             <!-- Текст перед квадратом -->
-            <TextBlock Text="Music: " FontSize="30" FontFamily="OCR A" VerticalAlignment="Center"/>
+            <TextBlock Text="Music: " FontSize="30" FontFamily="OCR A" VerticalAlignment="Center" Margin="0 50 0 0"/>
             <!-- Квадрат -->
             <Button x:Name="ButtonMusic" Width="50" Height="50" BorderBrush="Black" BorderThickness="2" Content="✔"
-                  Click="Button_ClickMusic" FontSize="35" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="0,0,0,0">
+                  Click="Button_ClickMusic" FontSize="35" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="0,0,0,0" 
+                    Margin="0 50 0 0">
             </Button>
         </StackPanel>
 
