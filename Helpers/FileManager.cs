@@ -43,7 +43,7 @@ namespace Basic_Clicker.Helpers
             }
             catch (Exception ex)
             {
-                throw new IOException("Ошибка записи в файл!", ex);
+                throw new IOException("Ошибка чтения из файла!", ex);
             }
         }
     }

@@ -17,7 +17,7 @@ namespace Basic_Clicker.ViewModel
     public class ClickerViewModel : INotifyPropertyChanged
     {
         private FileManager _fileManager = new FileManager(@"LocalSave\Record.txt");
-
+        private FileManager _fileManagerMoney = new FileManager(@"LocalSave\Money.txt");
         private int _totalClicks;
         private int _recordClick;
 
@@ -28,7 +28,9 @@ namespace Basic_Clicker.ViewModel
         private Timer _timer; // таймер
         private int _timeLeftInSeconds; // время в секундах, которое прошло
         private int _currentImageIndex = 0;
-        private string _currentImage; 
+        private string _currentImage;
+
+        private int _moneyCount;
 
         public Multiplier ClickMultiplier { get; set; }
         public ICommand ClickMultiplierCommand { get; }
@@ -42,8 +44,6 @@ namespace Basic_Clicker.ViewModel
         public ICommand SwitchImageCommand { get; }
 
         public event PropertyChangedEventHandler PropertyChanged;
-
-        
 
         public string CurrentImage
         {
@@ -111,6 +111,19 @@ namespace Basic_Clicker.ViewModel
             }
         }
 
+        public int MoneyCount
+        {
+            get => _moneyCount;
+            set
+            {
+                if(_moneyCount != value)
+                {
+                    _moneyCount = value;
+                    OnPropertyChanged();
+                }
+                
+            }
+        }
         public ClickerViewModel()
         {
             _pathImage = new ObservableCollection<string>
@@ -142,6 +155,7 @@ namespace Basic_Clicker.ViewModel
             ClickMultiplierCommand = new RelayCommand<string>(multiplierValue => ChangeMultiplier(multiplierValue));
 
             ClickRecord = _fileManager.ReadRecord();
+            MoneyCount = _fileManagerMoney.ReadRecord();
         }
 
 
@@ -159,6 +173,11 @@ namespace Basic_Clicker.ViewModel
             {
                 ClickMultiplier.Value = newValue;
             }
+        }
+
+        private void ChangeMoney()
+        {
+            //TotalMoney.Value = 
         }
 
         private int ParseTime(string selectedTime) // преобразователь времени из строки в int (секунды)
@@ -206,7 +225,8 @@ namespace Basic_Clicker.ViewModel
                     _isClickingAllowed = false;
                     _timer.Stop();
                     ClickMultiplier.Value = 1;
-                    if(TotalClicks > ClickRecord)
+                    _fileManagerMoney.WriteRecord(MoneyCount);
+                    if (TotalClicks > ClickRecord)
                     {
                         _fileManager.WriteRecord(TotalClicks);
                         ClickRecord = TotalClicks;
@@ -225,7 +245,12 @@ namespace Basic_Clicker.ViewModel
         public void IncrementClick()
         {
             if (_isClickingAllowed)
+            {
                 TotalClicks += (int)ClickMultiplier.Value;
+                MoneyCount += (int)ClickMultiplier.Value;
+            }
+               
+
         }
     }
 
