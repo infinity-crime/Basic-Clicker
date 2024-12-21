@@ -11,6 +11,7 @@ using System.Net.Http.Headers;
 using System.Windows.Input;
 using Basic_Clicker.Helpers;
 using System.Windows.Controls;
+using System.Windows;
 
 namespace Basic_Clicker.ViewModel
 {
@@ -31,6 +32,10 @@ namespace Basic_Clicker.ViewModel
         private string _currentImage;
 
         private int _moneyCount;
+        private int _costTwo = 500;
+        private int _costThree = 1200;
+        private int _costFour = 2000;
+        private int _costFive = 3000;
 
         public Multiplier ClickMultiplier { get; set; }
         public ICommand ClickMultiplierCommand { get; }
@@ -169,16 +174,68 @@ namespace Basic_Clicker.ViewModel
 
         private void ChangeMultiplier(string multiplierValue)
         {
-            if(double.TryParse(multiplierValue, out double newValue))
+            if(!_isClickingAllowed)
             {
-                ClickMultiplier.Value = newValue;
+                if (double.TryParse(multiplierValue, out double newValue))
+                {
+                    switch (newValue)
+                    {
+                        case 2:
+                            if (MoneyCount >= _costTwo && ClickMultiplier.Value != newValue)
+                            {
+                                ClickMultiplier.Value = newValue;
+                                MoneyCount -= _costTwo;
+                            }
+                            else if (MoneyCount <= _costTwo)
+                            {
+                                MessageBox.Show($"Недостаточно золота, требуется {_costTwo}");
+                            }
+                            break;
+                        case 3:
+                            {
+                                if (MoneyCount >= _costThree && ClickMultiplier.Value != newValue)
+                                {
+                                    ClickMultiplier.Value = newValue;
+                                    MoneyCount -= _costThree;
+                                }
+                                else if(MoneyCount <= _costThree)
+                                {
+                                    MessageBox.Show($"Недостаточно золота, требуется {_costThree}");
+                                }
+                                break;
+                            }
+                        case 4:
+                            {
+                                if (MoneyCount >= _costFour && ClickMultiplier.Value != newValue)
+                                {
+                                    ClickMultiplier.Value = newValue;
+                                    MoneyCount -= _costFour;
+                                }
+                                else if (MoneyCount <= _costFour)
+                                {
+                                    MessageBox.Show($"Недостаточно золота, требуется {_costFour}");
+                                }
+                                break;
+                            }
+                        case 5:
+                            {
+                                if (MoneyCount >= _costFive && ClickMultiplier.Value != newValue)
+                                {
+                                    ClickMultiplier.Value = newValue;
+                                    MoneyCount -= _costFive;
+                                }
+                                else if (MoneyCount <= _costFive)
+                                {
+                                    MessageBox.Show($"Недостаточно золота, требуется {_costFive}");
+                                }
+                                break;
+                            }
+                    }
+                }
             }
+            
         }
 
-        private void ChangeMoney()
-        {
-            //TotalMoney.Value = 
-        }
 
         private int ParseTime(string selectedTime) // преобразователь времени из строки в int (секунды)
         {
