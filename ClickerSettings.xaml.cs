@@ -20,14 +20,17 @@ namespace Basic_Clicker
 
     public partial class ClickerSettings : Window
     {
+        FileManager saveBackgroundSound = new FileManager(@"LocalSave\SettingsBackgroundSound.txt");
+        FileManager saveButtonSound = new FileManager(@"LocalSave\SettingsButtonSound.txt");
+
         public ClickerSettings()
         {
             InitializeComponent();
 
-            VolumeSlider.Value = MusicManager.Instance.BackgroundVolume * 100;
+            VolumeSlider.Value = saveBackgroundSound.ReadRecordDouble() * 100;
             VolumeLabel.Text = $"Music Volume: {VolumeSlider.Value}%";
 
-            SoundSlider.Value = MusicManager.Instance.ButtonVolume * 100;
+            SoundSlider.Value = saveButtonSound.ReadRecordDouble() * 100;
             SoundLabel.Text = $"Button Sound: {SoundSlider.Value}%";
             UpdateButtonState();
         }
@@ -60,6 +63,8 @@ namespace Basic_Clicker
                 double vol = VolumeSlider.Value / 100;
                 MusicManager.Instance.SetBackgroundVolume(vol);
                 VolumeLabel.Text = $"Music Volume: {VolumeSlider.Value}%";
+
+                saveBackgroundSound.WriteRecord(vol);
             }
         }
 
@@ -70,6 +75,8 @@ namespace Basic_Clicker
                 double vol = SoundSlider.Value / 100;
                 MusicManager.Instance.SetButtonVolume(vol);
                 SoundLabel.Text = $"Button Sound: {SoundSlider.Value}%";
+
+                saveButtonSound.WriteRecord(vol);
             }
         }
 

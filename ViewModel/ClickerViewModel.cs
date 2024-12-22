@@ -306,8 +306,6 @@ namespace Basic_Clicker.ViewModel
                 TotalClicks += (int)ClickMultiplier.Value;
                 MoneyCount += (int)ClickMultiplier.Value;
             }
-               
-
         }
     }
 
