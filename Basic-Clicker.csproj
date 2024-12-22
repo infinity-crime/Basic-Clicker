@@ -132,7 +132,25 @@
     <Resource Include="ImagesMenu\Pixel.jpg" />
     <Resource Include="ImagesMenu\WhiteMenuBackground.jpg" />
     <Resource Include="ImagesMenu\ClickerBackgroundPhoto.jpg" />
+    <Resource Include="ImagesMenu\ClickerBackgroundPhoto1.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="ImagesMenu\ClickerBackgroundPhoto2.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="ImagesMenu\ClickerBackgroundPhoto3.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Content Include="LocalSave\Money.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="LocalSave\Record.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="LocalSave\SettingsBackgroundSound.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="LocalSave\SettingsButtonSound.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Sounds\ButtonSoundMenu.mp3">

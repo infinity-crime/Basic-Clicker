@@ -20,9 +20,19 @@ namespace Basic_Clicker
 
     public partial class ClickerSettings : Window
     {
+        FileManager saveBackgroundSound = new FileManager(@"LocalSave\SettingsBackgroundSound.txt");
+        FileManager saveButtonSound = new FileManager(@"LocalSave\SettingsButtonSound.txt");
+
         public ClickerSettings()
         {
             InitializeComponent();
+
+            VolumeSlider.Value = saveBackgroundSound.ReadRecordDouble() * 100;
+            VolumeLabel.Text = $"Music Volume: {VolumeSlider.Value}%";
+
+            SoundSlider.Value = saveButtonSound.ReadRecordDouble() * 100;
+            SoundLabel.Text = $"Button Sound: {SoundSlider.Value}%";
+            UpdateButtonState();
         }
 
         private void BackToMenuButton_Click(object sender, RoutedEventArgs e)
@@ -34,16 +44,40 @@ namespace Basic_Clicker
             this.Close();
         }
 
+        private void UpdateButtonState()
+        {
+            if (MusicManager.Instance.MusicStates)
+            {
+                ButtonMusic.Content = "✔";
+            }
+            else
+            {
+                ButtonMusic.Content = "";
+            }
+        }
+
         private void VolumeSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
-            double vol = VolumeSlider.Value / 100;
-            MusicManager.Instance.SetBackgroundVolume(vol);
+            if(VolumeLabel != null)
+            {
+                double vol = VolumeSlider.Value / 100;
+                MusicManager.Instance.SetBackgroundVolume(vol);
+                VolumeLabel.Text = $"Music Volume: {VolumeSlider.Value}%";
+
+                saveBackgroundSound.WriteRecord(vol);
+            }
         }
 
         private void SoundSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
-            double vol = SoundSlider.Value / 100;
-            MusicManager.Instance.SetButtonVolume(vol);
+            if(SoundLabel != null)
+            {
+                double vol = SoundSlider.Value / 100;
+                MusicManager.Instance.SetButtonVolume(vol);
+                SoundLabel.Text = $"Button Sound: {SoundSlider.Value}%";
+
+                saveButtonSound.WriteRecord(vol);
+            }
         }
 
 
@@ -53,12 +87,12 @@ namespace Basic_Clicker
             if (button.Content.ToString() == "✔")
             {
                 button.Content = "";
-                MusicManager.Instance.StopMusic();
+                MusicManager.Instance.MusicStates = false;
             }
             else
             {
                 button.Content = "✔";
-                MusicManager.Instance.PlayMusic();
+                MusicManager.Instance.MusicStates = true;
             }
         }
         

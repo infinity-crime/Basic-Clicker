@@ -14,8 +14,10 @@ namespace Basic_Clicker.Helpers
         private static MusicManager _instance;
         private MediaPlayer _mediaBackgroundPlayer;
         private MediaPlayer _mediaButtonPlayer;
+        private bool _musicStates = true;
 
-     
+
+
         private MusicManager()
         {
             _mediaBackgroundPlayer = new MediaPlayer();
@@ -41,9 +43,33 @@ namespace Basic_Clicker.Helpers
             }
         }
 
+        public bool MusicStates
+        {
+            get => _musicStates;
+            set
+            {
+                _musicStates = value;
+                if (_musicStates)
+                    PlayMusic();
+                else
+                    StopMusic();    
+            }
+        }
+
+        public double BackgroundVolume
+        {
+            get => _mediaBackgroundPlayer.Volume;
+        }
+
+        public double ButtonVolume
+        {
+            get => _mediaButtonPlayer.Volume;
+        }
+
         public void PlayMusic()
         {
-            _mediaBackgroundPlayer.Play();
+            if (_musicStates)
+                _mediaBackgroundPlayer.Play();
         }
 
         public void StopMusic()
@@ -67,7 +93,5 @@ namespace Basic_Clicker.Helpers
             _mediaButtonPlayer.Position = TimeSpan.Zero;
             _mediaButtonPlayer.Play();
         }
-
-
     }
 }

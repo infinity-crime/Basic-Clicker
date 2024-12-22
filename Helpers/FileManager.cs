@@ -31,6 +31,21 @@ namespace Basic_Clicker.Helpers
             }
         }
 
+        public void WriteRecord(double record)
+        {
+            try
+            {
+                using (var writer = new StreamWriter(_filePath, append: false))
+                {
+                    writer.Write(record.ToString());
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new IOException("Ошибка записи в файл!", ex);
+            }
+        }
+
         public int ReadRecord()
         {
             try
@@ -43,7 +58,23 @@ namespace Basic_Clicker.Helpers
             }
             catch (Exception ex)
             {
-                throw new IOException("Ошибка записи в файл!", ex);
+                throw new IOException("Ошибка чтения из файла!", ex);
+            }
+        }
+
+        public double ReadRecordDouble()
+        {
+            try
+            {
+                using (var reader = new StreamReader(_filePath))
+                {
+                    var content = reader.ReadLine();
+                    return double.TryParse(content, out double record) ? record : 0;
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new IOException("Ошибка чтения из файла!", ex);
             }
         }
     }

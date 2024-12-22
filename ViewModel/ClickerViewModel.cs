@@ -10,13 +10,15 @@ using System.Runtime.CompilerServices;
 using System.Net.Http.Headers;
 using System.Windows.Input;
 using Basic_Clicker.Helpers;
+using System.Windows.Controls;
+using System.Windows;
 
 namespace Basic_Clicker.ViewModel
 {
     public class ClickerViewModel : INotifyPropertyChanged
     {
         private FileManager _fileManager = new FileManager(@"LocalSave\Record.txt");
-
+        private FileManager _fileManagerMoney = new FileManager(@"LocalSave\Money.txt");
         private int _totalClicks;
         private int _recordClick;
 
@@ -26,15 +28,41 @@ namespace Basic_Clicker.ViewModel
         private string _remainingTime; // строковое поле оставшегося времени
         private Timer _timer; // таймер
         private int _timeLeftInSeconds; // время в секундах, которое прошло
+        private int _currentImageIndex = 0;
+        private string _currentImage;
+
+        private int _moneyCount;
+        private int _costTwo = 500;
+        private int _costThree = 1200;
+        private int _costFour = 2000;
+        private int _costFive = 3000;
 
         public Multiplier ClickMultiplier { get; set; }
         public ICommand ClickMultiplierCommand { get; }
 
         public ObservableCollection<string> AvailableTimes { get; set; }
 
+        private ObservableCollection<string> _pathImage;
+
         public ICommand StartClickCommand { get; }
 
+        public ICommand SwitchImageCommand { get; }
+
         public event PropertyChangedEventHandler PropertyChanged;
+
+        public string CurrentImage
+        {
+            get => _currentImage;
+            set
+            {
+
+                if (_currentImage != value)
+                {
+                    _currentImage = value;
+                    OnPropertyChanged(nameof(CurrentImage));  // Уведомление об изменении пути изображения
+                }
+            }
+        }
 
         public int TotalClicks
         {
@@ -88,8 +116,31 @@ namespace Basic_Clicker.ViewModel
             }
         }
 
+        public int MoneyCount
+        {
+            get => _moneyCount;
+            set
+            {
+                if(_moneyCount != value)
+                {
+                    _moneyCount = value;
+                    OnPropertyChanged();
+                }
+                
+            }
+        }
         public ClickerViewModel()
         {
+            _pathImage = new ObservableCollection<string>
+            {
+                "ImagesMenu/ClickerBackgroundPhoto.jpg",
+                "ImagesMenu/ClickerBackgroundPhoto1.jpg",
+                 "ImagesMenu/ClickerBackgroundPhoto2.jpg",
+                "ImagesMenu/ClickerBackgroundPhoto3.jpg"
+
+            };
+
+
             AvailableTimes = new ObservableCollection<string>
             {
                 "30 seconds",
@@ -97,23 +148,94 @@ namespace Basic_Clicker.ViewModel
                 "1 minute 30 seconds"
             };
 
+            CurrentImage = _pathImage[_currentImageIndex];
+
             ClickMultiplier = new Multiplier();
 
             SelectedTime = AvailableTimes[0];
 
+
+            SwitchImageCommand = new RelayCommand(SwitchImage);
             StartClickCommand = new RelayCommand(StartClick);
             ClickMultiplierCommand = new RelayCommand<string>(multiplierValue => ChangeMultiplier(multiplierValue));
 
             ClickRecord = _fileManager.ReadRecord();
+            MoneyCount = _fileManagerMoney.ReadRecord();
+        }
+
+
+        private void SwitchImage()
+        {
+            _currentImageIndex++;
+            if (_currentImageIndex == 4) { _currentImageIndex = 0; }
+                CurrentImage = _pathImage[_currentImageIndex];
+          
         }
 
         private void ChangeMultiplier(string multiplierValue)
         {
-            if(double.TryParse(multiplierValue, out double newValue))
+            if(!_isClickingAllowed)
             {
-                ClickMultiplier.Value = newValue;
+                if (double.TryParse(multiplierValue, out double newValue))
+                {
+                    switch (newValue)
+                    {
+                        case 2:
+                            if (MoneyCount >= _costTwo && ClickMultiplier.Value != newValue)
+                            {
+                                ClickMultiplier.Value = newValue;
+                                MoneyCount -= _costTwo;
+                            }
+                            else if (MoneyCount <= _costTwo)
+                            {
+                                MessageBox.Show($"Недостаточно золота, требуется {_costTwo}");
+                            }
+                            break;
+                        case 3:
+                            {
+                                if (MoneyCount >= _costThree && ClickMultiplier.Value != newValue)
+                                {
+                                    ClickMultiplier.Value = newValue;
+                                    MoneyCount -= _costThree;
+                                }
+                                else if(MoneyCount <= _costThree)
+                                {
+                                    MessageBox.Show($"Недостаточно золота, требуется {_costThree}");
+                                }
+                                break;
+                            }
+                        case 4:
+                            {
+                                if (MoneyCount >= _costFour && ClickMultiplier.Value != newValue)
+                                {
+                                    ClickMultiplier.Value = newValue;
+                                    MoneyCount -= _costFour;
+                                }
+                                else if (MoneyCount <= _costFour)
+                                {
+                                    MessageBox.Show($"Недостаточно золота, требуется {_costFour}");
+                                }
+                                break;
+                            }
+                        case 5:
+                            {
+                                if (MoneyCount >= _costFive && ClickMultiplier.Value != newValue)
+                                {
+                                    ClickMultiplier.Value = newValue;
+                                    MoneyCount -= _costFive;
+                                }
+                                else if (MoneyCount <= _costFive)
+                                {
+                                    MessageBox.Show($"Недостаточно золота, требуется {_costFive}");
+                                }
+                                break;
+                            }
+                    }
+                }
             }
+            
         }
+
 
         private int ParseTime(string selectedTime) // преобразователь времени из строки в int (секунды)
         {
@@ -160,7 +282,8 @@ namespace Basic_Clicker.ViewModel
                     _isClickingAllowed = false;
                     _timer.Stop();
                     ClickMultiplier.Value = 1;
-                    if(TotalClicks > ClickRecord)
+                    _fileManagerMoney.WriteRecord(MoneyCount);
+                    if (TotalClicks > ClickRecord)
                     {
                         _fileManager.WriteRecord(TotalClicks);
                         ClickRecord = TotalClicks;
@@ -179,7 +302,10 @@ namespace Basic_Clicker.ViewModel
         public void IncrementClick()
         {
             if (_isClickingAllowed)
+            {
                 TotalClicks += (int)ClickMultiplier.Value;
+                MoneyCount += (int)ClickMultiplier.Value;
+            }
         }
     }
 

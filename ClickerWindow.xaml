@@ -21,24 +21,41 @@
     </Window.DataContext>
 
     <Grid>
-        
+
         <!-- Основная разметка окна -->
         <Grid.RowDefinitions>
 
             <RowDefinition Height="Auto"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
-            
+
         </Grid.RowDefinitions>
 
         <Border Grid.Row="0" Background="DarkCyan" BorderBrush="Black"
                 BorderThickness="3">
             <Grid>
                 <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
 
-                <TextBlock Grid.Column="0"
+
+                <Button Content="Switch fon"
+                  Margin="50 10 50 10"
+                  Grid.Column="0"
+                  Command="{Binding SwitchImageCommand}"
+                  Style="{StaticResource MaterialDesignOutlinedSecondaryButton}" />
+
+                <TextBlock Grid.Column="1"
+                           Text="{Binding MoneyCount, StringFormat='Gold: {0}'}"
+                           FontSize="30"
+                           FontWeight="Bold"
+                           Foreground="Gold"
+                           FontFamily="Berlin Sans FB"
+                           VerticalAlignment="Top"
+                           HorizontalAlignment="Left" Margin="200,10,50,0"/>
+
+                <TextBlock Grid.Column="1"
                            Text="{Binding ClickMultiplier.Value, StringFormat='Current Multiplier: x{0}'}"
                            FontSize="30"
                            FontFamily="Berlin Sans FB"
@@ -47,7 +64,7 @@
 
                 <Button Content="Back to menu"
                         Margin="0 10 50 10"
-                        Grid.Column="1"
+                        Grid.Column="2"
                         Click="BackToMenuButton_Click"
                         Style="{StaticResource MaterialDesignOutlinedSecondaryButton}" />
             </Grid>
@@ -101,7 +118,7 @@
                                            FontSize="30"/>
                             </DataTemplate>
                         </ComboBox.ItemTemplate>
-                        
+
                     </ComboBox>
 
                     <TextBlock Text="{Binding ClickRecord, StringFormat='Own click record: {0}'}" 
@@ -152,15 +169,15 @@
 
             <Border Grid.Column="1" BorderBrush="Black"
                     BorderThickness="6">
-                
-                <Image Source="ImagesMenu\ClickerBackgroundPhoto.jpg"
+
+                <Image Source="{Binding CurrentImage}"
                        Stretch="Fill" 
                        MouseLeftButtonDown="Image_MouseLeftButtonDown"/>
-                
+
             </Border>
-            
+
         </Grid>
-        
+
     </Grid>
-    
+
 </Window>

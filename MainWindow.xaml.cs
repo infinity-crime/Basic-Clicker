@@ -19,11 +19,18 @@ namespace Basic_Clicker
 {
     public partial class MainWindow : Window
     {
+        FileManager fileManagerBackground = new FileManager(@"LocalSave\SettingsBackgroundSound.txt");
+        FileManager fileManagerButton = new FileManager(@"LocalSave\SettingsButtonSound.txt");
 
         public MainWindow()
         {
             InitializeComponent();
+            double volBackground = fileManagerBackground.ReadRecordDouble();
+            MusicManager.Instance.SetBackgroundVolume(volBackground);
             MusicManager.Instance.PlayMusic();
+
+            double volButton = fileManagerButton.ReadRecordDouble();
+            MusicManager.Instance.SetButtonVolume(volButton);
         }
 
         private void ButtonGo_Click(object sender, RoutedEventArgs e)
